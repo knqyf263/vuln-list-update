@@ -54,6 +54,7 @@ type Vulnerability struct {
 	Priority          string
 	DiscoveredBy      string
 	AssignedTo        string
+	Tags              []string
 	Patches           map[Package]Statuses
 	UpstreamLinks     map[Package][]string
 }
@@ -254,7 +255,13 @@ func parse(r io.Reader) (vuln *Vulnerability, err error) {
 		// Parse Priority
 		if strings.HasPrefix(line, "Priority:") {
 			line = strings.TrimPrefix(line, "Priority:")
-			vuln.Priority = strings.TrimSpace(line)
+			priority := []string{strings.TrimSpace(line)}
+			for i+1 < len(lines) && strings.HasPrefix(lines[i+1], " ") {
+				i++
+				line = strings.TrimSpace(lines[i])
+				priority = append(priority, line)
+			}
+			vuln.Priority = strings.Join(priority, " ")
 			continue
 		}
 
@@ -269,6 +276,23 @@ func parse(r io.Reader) (vuln *Vulnerability, err error) {
 		if strings.HasPrefix(line, "Assigned-to:") {
 			line = strings.TrimPrefix(line, "Assigned-to:")
 			vuln.AssignedTo = strings.TrimSpace(line)
+			continue
+		}
+
+		// Parse Tags
+		if strings.HasPrefix(line, "Tags:") {
+			line = strings.TrimPrefix(line, "Tags:")
+			tagLine := strings.TrimSpace(line)
+			if tagLine != "" {
+				// Split tags by comma and space, then trim each tag
+				tags := strings.Split(tagLine, ",")
+				for _, tag := range tags {
+					tag = strings.TrimSpace(tag)
+					if tag != "" {
+						vuln.Tags = append(vuln.Tags, tag)
+					}
+				}
+			}
 			continue
 		}
 
