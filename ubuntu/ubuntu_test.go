@@ -432,7 +432,7 @@ func Test_parse(t *testing.T) {
 				filePath: "./testdata/tags_field_parsing",
 			},
 			want: &Vulnerability{
-				Candidate: "CVE-2019-2215",
+				Candidate:  "CVE-2019-2215",
 				PublicDate: time.Date(2019, 10, 11, 19, 15, 0, 0, time.UTC),
 				References: []string{
 					"https://source.android.com/security/bulletin/2019-10-01",
@@ -440,15 +440,15 @@ func Test_parse(t *testing.T) {
 					"https://www.cve.org/CVERecord?id=CVE-2019-2215",
 					"https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
 				},
-				Description: "A use-after-free in binder.c allows an elevation of privilege from an application to the Linux Kernel. No user interaction is required to exploit this vulnerability, however exploitation does require either the installation of a malicious local application or a separate vulnerability in a network facing application.Product: AndroidAndroid ID: A-141720095",
+				Description:       "A use-after-free in binder.c allows an elevation of privilege from an application to the Linux Kernel. No user interaction is required to exploit this vulnerability, however exploitation does require either the installation of a malicious local application or a separate vulnerability in a network facing application.Product: AndroidAndroid ID: A-141720095",
 				UbuntuDescription: "Maddie Stone discovered that the Binder IPC Driver implementation in the Linux kernel contained a use-after-free vulnerability. A local attacker could use this to cause a denial of service (system crash) or possibly execute arbitrary code.",
 				Notes: []string{
 					"sbeattie> from the project zero report: enabling CONFIG_DEBUG_LIST breaks the primitive.",
 				},
-				Priority: "high Listed in CISA Known Exploited Vulnerabilities Catalog",
+				Priority:     "high Listed in CISA Known Exploited Vulnerabilities Catalog",
 				DiscoveredBy: "Maddie Stone",
-				AssignedTo: "",
-				Tags: []string{"cisa-kev"},
+				AssignedTo:   "",
+				Tags:         []string{"cisa-kev"},
 				Patches: map[Package]Statuses{
 					Package("linux"): {
 						"upstream": Status{
