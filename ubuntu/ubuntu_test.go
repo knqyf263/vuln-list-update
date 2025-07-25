@@ -426,6 +426,55 @@ func Test_parse(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "tags field parsing",
+			args: args{
+				filePath: "./testdata/tags_field_parsing",
+			},
+			want: &Vulnerability{
+				Candidate: "CVE-2019-2215",
+				References: []string{
+					"https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-2215",
+					"https://android.googlesource.com/kernel/common/+/147a1074dbd5d8574c55e27bb7e6b53c4d3dd5e9",
+				},
+				Description:  "A use-after-free vulnerability in binder_send_failed_reply in drivers/android/binder.c allows an attacker to gain root privileges by causing a malicious process to crash.",
+				Priority:     "high",
+				DiscoveredBy: "Maddie Stone",
+				AssignedTo:   "",
+				Tags:         []string{"cisa-kev", "epss-prioritized"},
+				PublicDate:   time.Date(2019, 11, 1, 19, 15, 0, 0, time.UTC),
+				Patches: map[Package]Statuses{
+					Package("kernel"): {
+						"upstream": Status{
+							Status: "needs-triage",
+						},
+						"precise/esm": Status{
+							Status: "DNE",
+						},
+						"trusty": Status{
+							Status: "ignored",
+							Note:   "out of standard support",
+						},
+						"trusty/esm": Status{
+							Status: "needs-triage",
+						},
+						"xenial": Status{
+							Status: "needs-triage",
+						},
+						"bionic": Status{
+							Status: "needs-triage",
+						},
+						"focal": Status{
+							Status: "needs-triage",
+						},
+						"devel": Status{
+							Status: "needs-triage",
+						},
+					},
+				},
+				UpstreamLinks: map[Package][]string{},
+			},
+		},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {

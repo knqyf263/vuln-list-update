@@ -1,0 +1,22 @@
+Candidate: CVE-2019-2215
+PublicDate: 2019-11-01 19:15:00 UTC
+References:
+ https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-2215
+ https://android.googlesource.com/kernel/common/+/147a1074dbd5d8574c55e27bb7e6b53c4d3dd5e9
+Description:
+ A use-after-free vulnerability in binder_send_failed_reply in drivers/android/binder.c
+ allows an attacker to gain root privileges by causing a malicious process to crash.
+Priority: high
+ Listed in CISA Known Exploited Vulnerabilities Catalog
+Discovered-by: Maddie Stone
+Assigned-to:
+Tags: cisa-kev epss-prioritized
+
+upstream_kernel: needs-triage
+precise/esm_kernel: DNE
+trusty_kernel: ignored (out of standard support)
+trusty/esm_kernel: needs-triage
+xenial_kernel: needs-triage
+bionic_kernel: needs-triage
+focal_kernel: needs-triage
+devel_kernel: needs-triage
